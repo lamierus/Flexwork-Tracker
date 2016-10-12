@@ -1,4 +1,4 @@
-﻿namespace Flexwork_Tracker {
+﻿namespace FlexWork_Tracker {
     partial class FlexWorkViewerForm {
         /// <summary>
         /// Required designer variable.
@@ -299,7 +299,7 @@
             this.datetimePicker.Size = new System.Drawing.Size(200, 24);
             this.datetimePicker.TabIndex = 5;
             // 
-            // FlexworkViewerForm
+            // FlexWorkViewerForm
             // 
             this.AcceptButton = this.btnConfirm;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -333,7 +333,7 @@
             this.Controls.Add(this.lblRequestor);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "FlexworkViewerForm";
+            this.Name = "FlexWorkViewerForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

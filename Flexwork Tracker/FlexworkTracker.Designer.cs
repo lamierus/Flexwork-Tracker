@@ -1,4 +1,4 @@
-﻿namespace Flexwork_Tracker {
+﻿namespace FlexWork_Tracker {
     partial class FlexWorkTracker {
         /// <summary>
         /// Required designer variable.
@@ -25,10 +25,10 @@
         private void InitializeComponent() {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlexWorkTracker));
-            this.dgvFlexwork = new System.Windows.Forms.DataGridView();
-            this.bwLoadFlexwork = new System.ComponentModel.BackgroundWorker();
+            this.dgvFlexWork = new System.Windows.Forms.DataGridView();
+            this.bwLoadFlexWork = new System.ComponentModel.BackgroundWorker();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.bwSaveFlexwork = new System.ComponentModel.BackgroundWorker();
+            this.bwSaveFlexWork = new System.ComponentModel.BackgroundWorker();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -39,54 +39,54 @@
             this.tsmiQuit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSetDefaults = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvFlexwork)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFlexWork)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dgvFlexwork
+            // dgvFlexWork
             // 
-            this.dgvFlexwork.AllowUserToAddRows = false;
-            this.dgvFlexwork.AllowUserToDeleteRows = false;
+            this.dgvFlexWork.AllowUserToAddRows = false;
+            this.dgvFlexWork.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightCyan;
-            this.dgvFlexwork.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvFlexwork.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvFlexWork.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvFlexWork.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvFlexwork.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvFlexwork.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dgvFlexwork.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dgvFlexwork.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvFlexwork.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvFlexwork.Location = new System.Drawing.Point(12, 27);
-            this.dgvFlexwork.MultiSelect = false;
-            this.dgvFlexwork.Name = "dgvFlexwork";
-            this.dgvFlexwork.ReadOnly = true;
-            this.dgvFlexwork.RowHeadersVisible = false;
-            this.dgvFlexwork.RowHeadersWidth = 10;
-            this.dgvFlexwork.RowTemplate.ReadOnly = true;
-            this.dgvFlexwork.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvFlexwork.Size = new System.Drawing.Size(966, 330);
-            this.dgvFlexwork.TabIndex = 0;
-            this.dgvFlexwork.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFlexwork_CellDoubleClick);
+            this.dgvFlexWork.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvFlexWork.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgvFlexWork.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvFlexWork.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFlexWork.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvFlexWork.Location = new System.Drawing.Point(12, 27);
+            this.dgvFlexWork.MultiSelect = false;
+            this.dgvFlexWork.Name = "dgvFlexWork";
+            this.dgvFlexWork.ReadOnly = true;
+            this.dgvFlexWork.RowHeadersVisible = false;
+            this.dgvFlexWork.RowHeadersWidth = 10;
+            this.dgvFlexWork.RowTemplate.ReadOnly = true;
+            this.dgvFlexWork.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvFlexWork.Size = new System.Drawing.Size(966, 330);
+            this.dgvFlexWork.TabIndex = 0;
+            this.dgvFlexWork.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFlexWork_CellDoubleClick);
             // 
-            // bwLoadFlexwork
+            // bwLoadFlexWork
             // 
-            this.bwLoadFlexwork.WorkerReportsProgress = true;
-            this.bwLoadFlexwork.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwLoadFlexwork_DoWork);
-            this.bwLoadFlexwork.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwLoadFlexwork_ProgressChanged);
-            this.bwLoadFlexwork.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwLoadFlexwork_WorkerCompleted);
+            this.bwLoadFlexWork.WorkerReportsProgress = true;
+            this.bwLoadFlexWork.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwLoadFlexWork_DoWork);
+            this.bwLoadFlexWork.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwLoadFlexWork_ProgressChanged);
+            this.bwLoadFlexWork.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwLoadFlexWork_WorkerCompleted);
             // 
             // openFileDialog
             // 
             this.openFileDialog.Filter = "\"Excel Files|*.xlsx|All Files|*.*\"";
             this.openFileDialog.InitialDirectory = "C:\\Users\\simon.je\\Documents";
             // 
-            // bwSaveFlexwork
+            // bwSaveFlexWork
             // 
-            this.bwSaveFlexwork.WorkerReportsProgress = true;
-            this.bwSaveFlexwork.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwSaveFlexwork_DoWork);
-            this.bwSaveFlexwork.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwSaveFlexwork_ProgressChanged);
-            this.bwSaveFlexwork.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwSaveFlexwork_WorkerCompleted);
+            this.bwSaveFlexWork.WorkerReportsProgress = true;
+            this.bwSaveFlexWork.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwSaveFlexWork_DoWork);
+            this.bwSaveFlexWork.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwSaveFlexWork_ProgressChanged);
+            this.bwSaveFlexWork.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwSaveFlexWork_WorkerCompleted);
             // 
             // btnAdd
             // 
@@ -159,7 +159,7 @@
             // 
             this.tsmiSave.Name = "tsmiSave";
             this.tsmiSave.Size = new System.Drawing.Size(147, 22);
-            this.tsmiSave.Text = "Save Flexwork";
+            this.tsmiSave.Text = "Save FlexWork";
             this.tsmiSave.Click += new System.EventHandler(this.tsmiSave_Click);
             // 
             // tsmiQuit
@@ -184,7 +184,7 @@
             this.tsmiSetDefaults.Text = "Set Defaults";
             this.tsmiSetDefaults.Click += new System.EventHandler(this.tsmiSettings_Click);
             // 
-            // FlexworkTracker
+            // FlexWorkTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -193,16 +193,16 @@
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.dgvFlexwork);
+            this.Controls.Add(this.dgvFlexWork);
             this.Controls.Add(this.menuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
-            this.Name = "FlexworkTracker";
+            this.Name = "FlexWorkTracker";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Flexwork Tracker";
-            this.Activated += new System.EventHandler(this.FlexworkTracker_Activated);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FlexworkTracker_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvFlexwork)).EndInit();
+            this.Text = "FlexWork Tracker";
+            this.Activated += new System.EventHandler(this.FlexWorkTracker_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FlexWorkTracker_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFlexWork)).EndInit();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -212,10 +212,10 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgvFlexwork;
-        private System.ComponentModel.BackgroundWorker bwLoadFlexwork;
+        private System.Windows.Forms.DataGridView dgvFlexWork;
+        private System.ComponentModel.BackgroundWorker bwLoadFlexWork;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.ComponentModel.BackgroundWorker bwSaveFlexwork;
+        private System.ComponentModel.BackgroundWorker bwSaveFlexWork;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;

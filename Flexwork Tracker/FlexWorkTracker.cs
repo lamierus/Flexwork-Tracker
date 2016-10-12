@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 using Outlook = Microsoft.Office.Interop.Outlook;
 
-namespace Flexwork_Tracker {
+namespace FlexWork_Tracker {
     public partial class FlexWorkTracker : Form {
 
         //these are used in multiple areas, so this makes it easier to access across all places, making it easier to modify, if requirements change in the future
@@ -35,10 +35,10 @@ namespace Flexwork_Tracker {
         static public string DefaultLead;
         static public bool RequestDefaults;
         static public bool Fabulous;
-        static private string KeyLocation = "SOFTWARE\\Flexwork Tracker";
+        static private string KeyLocation = "SOFTWARE\\FlexWork Tracker";
         static public Microsoft.Win32.RegistryKey ProgramKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(KeyLocation);
 
-        private BindingList<FlexWork> FlexworkList = new BindingList<FlexWork>();
+        private BindingList<FlexWork> FlexWorkList = new BindingList<FlexWork>();
         private bool WindowLoaded = false;
         private bool Saved = true;
         private int ProgressBarMax;
@@ -51,27 +51,27 @@ namespace Flexwork_Tracker {
         public FlexWorkTracker() {
             InitializeComponent();
             
-            dgvFlexwork.DataSource = FlexworkList;
+            dgvFlexWork.DataSource = FlexWorkList;
             RequestDefaults = true;
             CheckFabulous();
         }
 
         /// <summary>
-        ///     make sure to load the current flexwork file being filled by the user, but only do it once, when first loading the application.
+        ///     make sure to load the current FlexWork file being filled by the user, but only do it once, when first loading the application.
         ///     I wanted to put it in the _Load event handler, but i preferred to have it happen after the window is drawn, instead of before.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FlexworkTracker_Activated(object sender, EventArgs e) {
+        private void FlexWorkTracker_Activated(object sender, EventArgs e) {
             if (!WindowLoaded) {
                 WindowLoaded = true;
-                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Flexwork\\FW Tracking.xlsx";
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\FlexWork\\FW Tracking.xlsx";
                 if (File.Exists(filePath)) {
-                    LoadingForm = new LoadingProgressForm("Loading current flexwork...");
-                    bwLoadFlexwork.RunWorkerAsync(filePath);
+                    LoadingForm = new LoadingProgressForm("Loading current FlexWork...");
+                    bwLoadFlexWork.RunWorkerAsync(filePath);
                     LoadingForm.ShowDialog();
                 } else {
-                    FlexworkList.Clear();
+                    FlexWorkList.Clear();
                 }
                 GetDefaults();
             }
@@ -148,11 +148,11 @@ namespace Flexwork_Tracker {
         }
 
         /// <summary>
-        ///     this is the function for the background worker to load the current flexwork sheet into memory.
+        ///     this is the function for the background worker to load the current FlexWork sheet into memory.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bwLoadFlexwork_DoWork(object sender, DoWorkEventArgs e) {
+        private void bwLoadFlexWork_DoWork(object sender, DoWorkEventArgs e) {
             string filePath = (string)e.Argument;
             Excel.Workbook workbook = ExcelApp.Workbooks.Open(filePath);
             Excel.Worksheet worksheet = workbook.Worksheets.Item[1];
@@ -161,29 +161,29 @@ namespace Flexwork_Tracker {
             int lastCol = getMaxCol(worksheet);
             ProgressBarMax = lastRow;
 
-            FlexWork newFlexwork;
-            FlexWork prevFlexwork = new FlexWork();
+            FlexWork newFlexWork;
+            FlexWork prevFlexWork = new FlexWork();
 
             for (int index = 2; index <= lastRow; index++) {
                 // this array holds all of the information from each line of the excel sheet
-                Array flexworkValues = (Array)worksheet.get_Range("A" + index.ToString(), ColumnNumToString(lastCol) + index.ToString()).Cells.Value;
+                Array FlexWorkValues = (Array)worksheet.get_Range("A" + index.ToString(), ColumnNumToString(lastCol) + index.ToString()).Cells.Value;
                 // I have to run the check null on each of these parsed cells, 
                 // due to being brought in from an excel sheet with possible blank cells
-                newFlexwork = new FlexWork() {
-                    Requestor = stringCheckNull(flexworkValues.GetValue(1, 1)),
-                    Hours = doubleCheckNull(flexworkValues.GetValue(1, 2)),
-                    Date = stringCheckNull(flexworkValues.GetValue(1, 3)),
-                    Details = stringCheckNull(flexworkValues.GetValue(1, 4)),
-                    Ticket = stringCheckNull(flexworkValues.GetValue(1, 5)),
-                    Category = stringCheckNull(flexworkValues.GetValue(1, 6)),
-                    Site = stringCheckNull(flexworkValues.GetValue(1, 7)),
-                    Comments = stringCheckNull(flexworkValues.GetValue(1, 8)),
-                    Technician = stringCheckNull(flexworkValues.GetValue(1, 9))
+                newFlexWork = new FlexWork() {
+                    Requestor = stringCheckNull(FlexWorkValues.GetValue(1, 1)),
+                    Hours = doubleCheckNull(FlexWorkValues.GetValue(1, 2)),
+                    Date = stringCheckNull(FlexWorkValues.GetValue(1, 3)),
+                    Details = stringCheckNull(FlexWorkValues.GetValue(1, 4)),
+                    Ticket = stringCheckNull(FlexWorkValues.GetValue(1, 5)),
+                    Category = stringCheckNull(FlexWorkValues.GetValue(1, 6)),
+                    Site = stringCheckNull(FlexWorkValues.GetValue(1, 7)),
+                    Comments = stringCheckNull(FlexWorkValues.GetValue(1, 8)),
+                    Technician = stringCheckNull(FlexWorkValues.GetValue(1, 9))
                 };
                 //this verifies that the newly created laptop is not a copy of the previous one
-                if (newFlexwork != prevFlexwork) {
-                    bwLoadFlexwork.ReportProgress(index, newFlexwork);
-                    prevFlexwork = newFlexwork;
+                if (newFlexWork != prevFlexWork) {
+                    bwLoadFlexWork.ReportProgress(index, newFlexWork);
+                    prevFlexWork = newFlexWork;
                 }
             }
             workbook.Close();
@@ -194,21 +194,21 @@ namespace Flexwork_Tracker {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bwLoadFlexwork_ProgressChanged(object sender, ProgressChangedEventArgs e) {
+        private void bwLoadFlexWork_ProgressChanged(object sender, ProgressChangedEventArgs e) {
             if (LoadingForm.getProgressMax() != ProgressBarMax) {
                 LoadingForm.setProgressMax(ProgressBarMax);
             }
-            FlexworkList.Add((FlexWork)e.UserState);
+            FlexWorkList.Add((FlexWork)e.UserState);
             LoadingForm.changeProgress(e.ProgressPercentage);
         }
 
         /// <summary>
-        ///     closes the loading form and resets the bindings, to properly show the list of current flexwork
+        ///     closes the loading form and resets the bindings, to properly show the list of current FlexWork
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bwLoadFlexwork_WorkerCompleted(object sender, AsyncCompletedEventArgs e) {
-            FlexworkList.ResetBindings();
+        private void bwLoadFlexWork_WorkerCompleted(object sender, AsyncCompletedEventArgs e) {
+            FlexWorkList.ResetBindings();
             LoadingForm.Close();
         }
 
@@ -284,11 +284,11 @@ namespace Flexwork_Tracker {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void tsmiSave_Click(object sender, EventArgs e) {
-            LoadingForm = new LoadingProgressForm("Saving current flexwork...");
-            ProgressBarMax = FlexworkList.Count + 1;
+            LoadingForm = new LoadingProgressForm("Saving current FlexWork...");
+            ProgressBarMax = FlexWorkList.Count + 1;
             string weekDate = getWeekDate(DateTime.Today);
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Flexwork\\FW Tracking.xlsx";
-            bwSaveFlexwork.RunWorkerAsync(filePath);
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\FlexWork\\FW Tracking.xlsx";
+            bwSaveFlexWork.RunWorkerAsync(filePath);
             LoadingForm.ShowDialog();
         }
 
@@ -297,7 +297,7 @@ namespace Flexwork_Tracker {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bwSaveFlexwork_DoWork(object sender, DoWorkEventArgs e) {
+        private void bwSaveFlexWork_DoWork(object sender, DoWorkEventArgs e) {
             Excel.Workbook workbook;
             Excel.Worksheet worksheet;
             string filePath = (string)e.Argument;
@@ -324,7 +324,7 @@ namespace Flexwork_Tracker {
 
             int index = 2;
 
-            foreach (FlexWork flex in FlexworkList) {
+            foreach (FlexWork flex in FlexWorkList) {
                 worksheet.Cells[index, 1].Value = flex.Requestor;
                 worksheet.Cells[index, 2].Value = flex.Hours;
                 worksheet.Cells[index, 3].Value = flex.Date;
@@ -334,7 +334,7 @@ namespace Flexwork_Tracker {
                 worksheet.Cells[index, 7].Value = flex.Site;
                 worksheet.Cells[index, 8].Value = flex.Comments;
                 worksheet.Cells[index, 9].Value = flex.Technician;
-                bwSaveFlexwork.ReportProgress(index++);
+                bwSaveFlexWork.ReportProgress(index++);
             }
 
             workbook.SaveAs(filePath);
@@ -346,7 +346,7 @@ namespace Flexwork_Tracker {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bwSaveFlexwork_ProgressChanged(object sender, ProgressChangedEventArgs e) {
+        private void bwSaveFlexWork_ProgressChanged(object sender, ProgressChangedEventArgs e) {
             if (LoadingForm.getProgressMax() != ProgressBarMax) {
                 LoadingForm.setProgressMax(ProgressBarMax);
             }
@@ -358,13 +358,13 @@ namespace Flexwork_Tracker {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bwSaveFlexwork_WorkerCompleted(object sender, AsyncCompletedEventArgs e) {
+        private void bwSaveFlexWork_WorkerCompleted(object sender, AsyncCompletedEventArgs e) {
             Saved = true;
             LoadingForm.Close();
         }
 
         /// <summary>
-        ///     logic to load up the form for adding a new flexwork item.
+        ///     logic to load up the form for adding a new FlexWork item.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -372,72 +372,72 @@ namespace Flexwork_Tracker {
             using (var form = new FlexWorkViewerForm()) {
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK) {
-                    FlexworkList.Add(form.ReturnFlexwork);
+                    FlexWorkList.Add(form.ReturnFlexWork);
                     Saved = false;
                 }
             }
         }
 
         /// <summary>
-        ///     logic to load up the form for viewing a currently shown flexwork item.
+        ///     logic to load up the form for viewing a currently shown FlexWork item.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dgvFlexwork_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
-            var form = new FlexWorkViewerForm((FlexWork)dgvFlexwork.SelectedRows[0].DataBoundItem, FlexworkViewerType.View);
+        private void dgvFlexWork_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
+            var form = new FlexWorkViewerForm((FlexWork)dgvFlexWork.SelectedRows[0].DataBoundItem, FlexWorkViewerType.View);
             form.ShowDialog();
         }
 
         /// <summary>
-        ///     logic to load up the form for editing a current flexwork item.
+        ///     logic to load up the form for editing a current FlexWork item.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnEdit_Click(object sender, EventArgs e) {
-            FlexWork flexworkToEdit = (FlexWork)dgvFlexwork.SelectedRows[0].DataBoundItem;
-            using (var form = new FlexWorkViewerForm(flexworkToEdit, FlexworkViewerType.Edit)) {
+            FlexWork FlexWorkToEdit = (FlexWork)dgvFlexWork.SelectedRows[0].DataBoundItem;
+            using (var form = new FlexWorkViewerForm(FlexWorkToEdit, FlexWorkViewerType.Edit)) {
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK) {
-                    FlexworkList.Insert(FlexworkList.IndexOf(flexworkToEdit), form.ReturnFlexwork);
-                    FlexworkList.Remove(flexworkToEdit);
+                    FlexWorkList.Insert(FlexWorkList.IndexOf(FlexWorkToEdit), form.ReturnFlexWork);
+                    FlexWorkList.Remove(FlexWorkToEdit);
                     Saved = false;
                 }
             }
         }
 
         /// <summary>
-        ///     logic to load up the form for deleting an old flexwork item.
+        ///     logic to load up the form for deleting an old FlexWork item.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e) {
-            using (var form = new FlexWorkViewerForm((FlexWork)dgvFlexwork.SelectedRows[0].DataBoundItem, FlexworkViewerType.Delete)) {
+            using (var form = new FlexWorkViewerForm((FlexWork)dgvFlexWork.SelectedRows[0].DataBoundItem, FlexWorkViewerType.Delete)) {
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK) {
-                    FlexworkList.Remove(form.ReturnFlexwork);
+                    FlexWorkList.Remove(form.ReturnFlexWork);
                     Saved = false;
                 }
             }
         }
 
         /// <summary>
-        ///     this is the logic to commit the current flexwork to a file and send that file to the user-chosen team lead for tracking/billing.
+        ///     this is the logic to commit the current FlexWork to a file and send that file to the user-chosen team lead for tracking/billing.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnSaveAndSend_Click(object sender, EventArgs e) {
             string weekDate = getWeekDate(DateTime.Today);
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Flexwork\\FW Tracking " + 
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\FlexWork\\FW Tracking " + 
                               DateTime.Today.Year + " week of " + weekDate + ".xlsx";
 
             using (var form = new CommitAndSend()) {
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK) {
-                    LoadingForm = new LoadingProgressForm("Saving...", (ProgressBarMax = FlexworkList.Count + 1));
-                    bwSaveFlexwork.RunWorkerAsync(filePath);
+                    LoadingForm = new LoadingProgressForm("Saving...", (ProgressBarMax = FlexWorkList.Count + 1));
+                    bwSaveFlexWork.RunWorkerAsync(filePath);
                     LoadingForm.ShowDialog();
                     sendEmail(form.ReturnEmail, weekDate, filePath);
-                    FlexworkList.Clear();
+                    FlexWorkList.Clear();
                     Saved = false;
                 }
             }
@@ -453,8 +453,8 @@ namespace Flexwork_Tracker {
             Outlook.Application outlookApp = new Outlook.Application();
             Outlook.MailItem email = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
             email.To = mailTo;
-            email.Subject = "Flexwork Tracking for week of " + date;
-            email.Body = "Here is the latest Flexwork Tracking sheet.";
+            email.Subject = "FlexWork Tracking for week of " + date;
+            email.Body = "Here is the latest FlexWork Tracking sheet.";
             Outlook.Attachments oAttachs = email.Attachments;
             oAttachs.Add(attachment);
             email.Send();
@@ -517,11 +517,11 @@ namespace Flexwork_Tracker {
         }
 
         /// <summary>
-        ///     prompts the user, incase they haven't saved the current flexwork items, if they have been edited, deleted, or new items added.
+        ///     prompts the user, incase they haven't saved the current FlexWork items, if they have been edited, deleted, or new items added.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FlexworkTracker_FormClosing(object sender, FormClosingEventArgs e) {
+        private void FlexWorkTracker_FormClosing(object sender, FormClosingEventArgs e) {
             if (!Saved) {
                 using (var error = new ErrorWithOptions("You have not saved your data, yet.  Are you sure you want to close ?",
                                                         "Close",

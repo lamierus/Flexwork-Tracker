@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Flexwork_Tracker.Properties {
+namespace FlexWork_Tracker.Properties {
 
 
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

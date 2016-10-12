@@ -1,4 +1,4 @@
-﻿namespace Flexwork_Tracker {
+﻿namespace FlexWork_Tracker {
     partial class ErrorWithOptions {
         /// <summary>
         /// Required designer variable.

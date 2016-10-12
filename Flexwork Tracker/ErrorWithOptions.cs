@@ -5,7 +5,7 @@ using System.Windows.Forms;
 /// <summary>
 ///     this form displays an error message and offers the user multiple options of how to continue
 /// </summary>
-namespace Flexwork_Tracker {
+namespace FlexWork_Tracker {
     public partial class ErrorWithOptions : Form {
 
         public ErrorWithOptions(string message, string ok, string cancel, bool thirdButton = false, string thirdOption = "") {

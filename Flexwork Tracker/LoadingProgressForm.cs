@@ -3,7 +3,7 @@
 /// <summary>
 ///     this just displays the received message and a progressbar for when saving/loading
 /// </summary>
-namespace Flexwork_Tracker {
+namespace FlexWork_Tracker {
     public partial class LoadingProgressForm : Form {
 
         public LoadingProgressForm(string message = "Loading...", int progressMax = 100) {

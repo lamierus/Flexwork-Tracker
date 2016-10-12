@@ -4,7 +4,7 @@ using System.Windows.Forms;
 /// <summary>
 ///     this is just a very basic form for displaying an error message.  that's it.
 /// </summary>
-namespace Flexwork_Tracker {
+namespace FlexWork_Tracker {
     public partial class ErrorMessage : Form {
 
         public ErrorMessage(string errorMessage) {

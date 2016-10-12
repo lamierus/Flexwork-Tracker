@@ -4,7 +4,7 @@ using System.Windows.Forms;
 /// <summary>
 ///     this is a basic form that just manipulates the global static variables from the main program
 /// </summary>
-namespace Flexwork_Tracker {
+namespace FlexWork_Tracker {
     public partial class Settings : Form {
 
         public Settings() {

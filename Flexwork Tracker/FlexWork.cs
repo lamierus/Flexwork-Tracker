@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Flexwork_Tracker {
+namespace FlexWork_Tracker {
     public class FlexWork : IEquatable<FlexWork>{
         public string Requestor { get; set; }
         public double Hours { get; set; }

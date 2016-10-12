@@ -2,20 +2,20 @@
 using System.Windows.Forms;
 
 /// <summary>
-///     form for adding/deleting/editing/viewing flexwork items.
+///     form for adding/deleting/editing/viewing FlexWork items.
 /// </summary>
-namespace Flexwork_Tracker {
+namespace FlexWork_Tracker {
     public partial class FlexWorkViewerForm : Form {
 
-        public FlexWork ReturnFlexwork { get; set; }
+        public FlexWork ReturnFlexWork { get; set; }
 
         /// <summary>
-        ///     basic constructor, for adding a new flexwork object.
+        ///     basic constructor, for adding a new FlexWork object.
         ///     this also checks for and loads defaults from the registry, if they have been set.
         ///     it will also prompt the user, if they haven't been set, yet.
         /// </summary>
         public FlexWorkViewerForm() {
-            ReturnFlexwork = new FlexWork();
+            ReturnFlexWork = new FlexWork();
             
             InitializeComponent();
 
@@ -48,28 +48,28 @@ namespace Flexwork_Tracker {
 
         /// <summary>
         ///     this constructor is for any of the other 3 options, as they will have items already set for
-        ///     each of the flexwork objects properties.
+        ///     each of the FlexWork objects properties.
         /// </summary>
-        /// <param name="flexwork"></param>
+        /// <param name="FlexWork"></param>
         /// <param name="type"></param>
-        public FlexWorkViewerForm(FlexWork flexwork, FlexworkViewerType type) {
+        public FlexWorkViewerForm(FlexWork FlexWork, FlexWorkViewerType type) {
             InitializeComponent();
 
             cbCategory.DataSource = FlexWorkTracker.Categories;
             cbSite.DataSource = FlexWorkTracker.Sites;
 
             int dataSourceIndex;
-            ReturnFlexwork = flexwork;
+            ReturnFlexWork = FlexWork;
 
-            tbComments.Text = ReturnFlexwork.Comments;
-            datetimePicker.Text = ReturnFlexwork.Date;
-            tbDetails.Text = ReturnFlexwork.Details;
-            tbHours.Text = ReturnFlexwork.Hours.ToString();
-            tbRequestor.Text = ReturnFlexwork.Requestor;
-            tbTechnician.Text = ReturnFlexwork.Technician;
-            tbTicket.Text = ReturnFlexwork.Ticket;
+            tbComments.Text = ReturnFlexWork.Comments;
+            datetimePicker.Text = ReturnFlexWork.Date;
+            tbDetails.Text = ReturnFlexWork.Details;
+            tbHours.Text = ReturnFlexWork.Hours.ToString();
+            tbRequestor.Text = ReturnFlexWork.Requestor;
+            tbTechnician.Text = ReturnFlexWork.Technician;
+            tbTicket.Text = ReturnFlexWork.Ticket;
 
-            if (type == FlexworkViewerType.View || type == FlexworkViewerType.Delete) {
+            if (type == FlexWorkViewerType.View || type == FlexWorkViewerType.Delete) {
                 tbComments.Enabled = false;
                 datetimePicker.Enabled = false;
                 tbDetails.Enabled = false;
@@ -80,25 +80,23 @@ namespace Flexwork_Tracker {
                 cbCategory.Enabled = false;
                 cbSite.Enabled = false;
 
-                if (type == FlexworkViewerType.View) {
+                if (type == FlexWorkViewerType.View) {
                     btnCancel.Visible = false;
                     btnConfirm.Visible = false;
                     btnClose.Visible = true;
                     CancelButton = btnClose;
                     AcceptButton = btnClose;
-                } else if (type == FlexworkViewerType.Delete) {
+                } else if (type == FlexWorkViewerType.Delete) {
                     lblWarning.Visible = true;
                     lblWarningTitle.Visible = true;
                 }
             }
 
-            dataSourceIndex = cbCategory.FindString(ReturnFlexwork.Category);
+            dataSourceIndex = cbCategory.FindString(ReturnFlexWork.Category);
             cbCategory.SelectedIndex = dataSourceIndex;
 
-            dataSourceIndex = cbSite.FindString(ReturnFlexwork.Site);
+            dataSourceIndex = cbSite.FindString(ReturnFlexWork.Site);
             cbSite.SelectedIndex = dataSourceIndex;
-
-            datetimePicker.Value = DateTime.Today;
         }
         
         /// <summary>
@@ -112,25 +110,25 @@ namespace Flexwork_Tracker {
         }
 
         /// <summary>
-        ///     sets the ReturnFlexwork property properties to the selected/entered values.
+        ///     sets the ReturnFlexWork property properties to the selected/entered values.
         ///     also checks to make sure the hours used are in the correct format, as that is the only 
         ///     variable needing parsed.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnConfirm_Click(object sender, EventArgs e) {
-            ReturnFlexwork.Category = (string)cbCategory.SelectedItem;
-            ReturnFlexwork.Comments = tbComments.Text;
-            ReturnFlexwork.Date = datetimePicker.Text;
-            ReturnFlexwork.Details = tbDetails.Text;
-            ReturnFlexwork.Requestor = tbRequestor.Text;
-            ReturnFlexwork.Site = (string)cbSite.SelectedItem;
-            ReturnFlexwork.Technician = tbTechnician.Text;
-            ReturnFlexwork.Ticket = tbTicket.Text;
+            ReturnFlexWork.Category = (string)cbCategory.SelectedItem;
+            ReturnFlexWork.Comments = tbComments.Text;
+            ReturnFlexWork.Date = datetimePicker.Text;
+            ReturnFlexWork.Details = tbDetails.Text;
+            ReturnFlexWork.Requestor = tbRequestor.Text;
+            ReturnFlexWork.Site = (string)cbSite.SelectedItem;
+            ReturnFlexWork.Technician = tbTechnician.Text;
+            ReturnFlexWork.Ticket = tbTicket.Text;
 
             double parsedNum;
             if (double.TryParse(tbHours.Text, out parsedNum)) {
-                ReturnFlexwork.Hours = parsedNum;
+                ReturnFlexWork.Hours = parsedNum;
                 DialogResult = DialogResult.OK;
                 Close();
             } else {
@@ -140,7 +138,7 @@ namespace Flexwork_Tracker {
         }
 
         /// <summary>
-        ///     this is the button displayed when the user is just viewing the flexwork object.
+        ///     this is the button displayed when the user is just viewing the FlexWork object.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

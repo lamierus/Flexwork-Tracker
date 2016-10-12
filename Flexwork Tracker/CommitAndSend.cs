@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Flexwork_Tracker {
+namespace FlexWork_Tracker {
     public partial class CommitAndSend : Form {
         public string ReturnEmail { get; set; }
 
