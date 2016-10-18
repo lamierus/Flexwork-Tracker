@@ -26,7 +26,7 @@ namespace FlexWork_Tracker {
                                                            true, "Stop Asking");
                 var result = defaultsMissing.ShowDialog();
                 if (result == DialogResult.OK) {
-                    FlexWorkTracker.SetDefaults(FlexWorkTracker.ProgramKey);
+                    FlexWorkTracker.SetDefaults(ref FlexWorkTracker.ProgramKey);
                 } else if (result == DialogResult.Yes) {
                     FlexWorkTracker.RequestDefaults = false;
                 }

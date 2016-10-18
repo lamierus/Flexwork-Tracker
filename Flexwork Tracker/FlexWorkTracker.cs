@@ -92,7 +92,7 @@ namespace FlexWork_Tracker {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void tsmiSettings_Click(object sender, EventArgs e) {
-            SetDefaults(ProgramKey);
+            SetDefaults(ref ProgramKey);
         }
 
         /// <summary>
@@ -121,30 +121,24 @@ namespace FlexWork_Tracker {
         ///     opens a form to get the defaults from the user, then saves them to keys in the registry.
         /// </summary>
         /// <param name="key"></param>
-        static public void SetDefaults(Microsoft.Win32.RegistryKey key) {
+        static public void SetDefaults(ref Microsoft.Win32.RegistryKey key) {
             var form = new Settings();
             form.ShowDialog();
-
-            string siteName = DefaultSite;
-            string categoryName = DefaultCategory;
-            string technician = DefaultTechnician;
-            string lead = DefaultLead;
-
+            
             if (key == null) {
                 key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(KeyLocation);
-                key.SetValue("Default Site", siteName);
-                key.SetValue("Default Category", categoryName);
-                key.SetValue("Default Technician", technician);
-                key.SetValue("Default Lead", lead);
+                key.SetValue("Default Site", DefaultSite);
+                key.SetValue("Default Category", DefaultCategory);
+                key.SetValue("Default Technician", DefaultTechnician);
+                key.SetValue("Default Lead", DefaultLead);
             } else {
                 Microsoft.Win32.Registry.CurrentUser.DeleteSubKey(KeyLocation);
                 key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(KeyLocation);
-                key.SetValue("Default Site", siteName);
-                key.SetValue("Default Category", categoryName);
-                key.SetValue("Default Technician", technician);
-                key.SetValue("Default Lead", lead);
+                key.SetValue("Default Site", DefaultSite);
+                key.SetValue("Default Category", DefaultCategory);
+                key.SetValue("Default Technician", DefaultTechnician);
+                key.SetValue("Default Lead", DefaultLead);
             }
-            key.Close();
         }
 
         /// <summary>
@@ -161,29 +155,29 @@ namespace FlexWork_Tracker {
             int lastCol = getMaxCol(worksheet);
             ProgressBarMax = lastRow;
 
-            FlexWork newFlexWork;
-            FlexWork prevFlexWork = new FlexWork();
+            FlexWork newFlexwork;
+            FlexWork prevFlexwork = new FlexWork();
 
             for (int index = 2; index <= lastRow; index++) {
                 // this array holds all of the information from each line of the excel sheet
-                Array FlexWorkValues = (Array)worksheet.get_Range("A" + index.ToString(), ColumnNumToString(lastCol) + index.ToString()).Cells.Value;
+                Array flexworkValues = (Array)worksheet.get_Range("A" + index.ToString(), ColumnNumToString(lastCol) + index.ToString()).Cells.Value;
                 // I have to run the check null on each of these parsed cells, 
                 // due to being brought in from an excel sheet with possible blank cells
-                newFlexWork = new FlexWork() {
-                    Requestor = stringCheckNull(FlexWorkValues.GetValue(1, 1)),
-                    Hours = doubleCheckNull(FlexWorkValues.GetValue(1, 2)),
-                    Date = stringCheckNull(FlexWorkValues.GetValue(1, 3)),
-                    Details = stringCheckNull(FlexWorkValues.GetValue(1, 4)),
-                    Ticket = stringCheckNull(FlexWorkValues.GetValue(1, 5)),
-                    Category = stringCheckNull(FlexWorkValues.GetValue(1, 6)),
-                    Site = stringCheckNull(FlexWorkValues.GetValue(1, 7)),
-                    Comments = stringCheckNull(FlexWorkValues.GetValue(1, 8)),
-                    Technician = stringCheckNull(FlexWorkValues.GetValue(1, 9))
+                newFlexwork = new FlexWork() {
+                    Date = stringCheckNull(flexworkValues.GetValue(1, 1)),
+                    Category = stringCheckNull(flexworkValues.GetValue(1, 2)),
+                    Details = stringCheckNull(flexworkValues.GetValue(1, 3)),
+                    Hours = doubleCheckNull(flexworkValues.GetValue(1, 4)),
+                    Requestor = stringCheckNull(flexworkValues.GetValue(1, 5)),
+                    Technician = stringCheckNull(flexworkValues.GetValue(1, 6)),
+                    Site = stringCheckNull(flexworkValues.GetValue(1, 7)),
+                    Ticket = stringCheckNull(flexworkValues.GetValue(1, 8)),
+                    Comments = stringCheckNull(flexworkValues.GetValue(1, 9))
                 };
                 //this verifies that the newly created laptop is not a copy of the previous one
-                if (newFlexWork != prevFlexWork) {
-                    bwLoadFlexWork.ReportProgress(index, newFlexWork);
-                    prevFlexWork = newFlexWork;
+                if (newFlexwork != prevFlexwork) {
+                    bwLoadFlexWork.ReportProgress(index, newFlexwork);
+                    prevFlexwork = newFlexwork;
                 }
             }
             workbook.Close();
@@ -309,15 +303,15 @@ namespace FlexWork_Tracker {
             worksheet = workbook.Worksheets.Item[1];
 
             worksheet.Columns.ColumnWidth = 20;
-            worksheet.Cells[1, 1].Value = "Requestor";
-            worksheet.Cells[1, 2].Value = "Hours Used";
-            worksheet.Cells[1, 3].Value = "Date of Service";
-            worksheet.Cells[1, 4].Value = "Details of request";
-            worksheet.Cells[1, 5].Value = "Ticket Number";
-            worksheet.Cells[1, 6].Value = "Category";
+            worksheet.Cells[1, 1].Value = "Date of Service";
+            worksheet.Cells[1, 2].Value = "Category";
+            worksheet.Cells[1, 3].Value = "Details of request";
+            worksheet.Cells[1, 4].Value = "Hours Used";
+            worksheet.Cells[1, 5].Value = "Requestor";
+            worksheet.Cells[1, 6].Value = "Created By";
             worksheet.Cells[1, 7].Value = "Site";
-            worksheet.Cells[1, 8].Value = "Comments";
-            worksheet.Cells[1, 9].Value = "Created By";
+            worksheet.Cells[1, 8].Value = "Ticket Number";
+            worksheet.Cells[1, 9].Value = "Comments";
 
             int lastRow = getMaxRow(worksheet);
             int lastCol = getMaxCol(worksheet);
@@ -325,15 +319,15 @@ namespace FlexWork_Tracker {
             int index = 2;
 
             foreach (FlexWork flex in FlexWorkList) {
-                worksheet.Cells[index, 1].Value = flex.Requestor;
-                worksheet.Cells[index, 2].Value = flex.Hours;
-                worksheet.Cells[index, 3].Value = flex.Date;
-                worksheet.Cells[index, 4].Value = flex.Details;
-                worksheet.Cells[index, 5].Value = flex.Ticket;
-                worksheet.Cells[index, 6].Value = flex.Category;
+                worksheet.Cells[index, 1].Value = flex.Date;
+                worksheet.Cells[index, 2].Value = flex.Category;
+                worksheet.Cells[index, 3].Value = flex.Details;
+                worksheet.Cells[index, 4].Value = flex.Hours;
+                worksheet.Cells[index, 5].Value = flex.Requestor;
+                worksheet.Cells[index, 6].Value = flex.Technician;
                 worksheet.Cells[index, 7].Value = flex.Site;
-                worksheet.Cells[index, 8].Value = flex.Comments;
-                worksheet.Cells[index, 9].Value = flex.Technician;
+                worksheet.Cells[index, 8].Value = flex.Ticket;
+                worksheet.Cells[index, 9].Value = flex.Comments;
                 bwSaveFlexWork.ReportProgress(index++);
             }
 
@@ -538,6 +532,7 @@ namespace FlexWork_Tracker {
                 }
             } else {
                 ExcelApp.Application.Quit();
+                ProgramKey.Close();
             }
         }
     }

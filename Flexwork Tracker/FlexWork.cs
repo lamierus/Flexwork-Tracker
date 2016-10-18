@@ -5,16 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FlexWork_Tracker {
-    public class FlexWork : IEquatable<FlexWork>{
-        public string Requestor { get; set; }
-        public double Hours { get; set; }
+    public class FlexWork : IEquatable<FlexWork> {
         public string Date { get; set; }
-        public string Details { get; set; }
-        public string Ticket { get; set; }
         public string Category { get; set; }
-        public string Site { get; set; }
-        public string Comments { get; set; }
+        public string Details { get; set; }
+        public double Hours { get; set; }
+        public string Requestor { get; set; }
         public string Technician { get; set; }
+        public string Site { get; set; }
+        public string Ticket { get; set; }
+        public string Comments { get; set; }
 
         public FlexWork() {
             Requestor = "";
